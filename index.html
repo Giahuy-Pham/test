@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.mon td {background-color: lightblue;}
+.mon td:hover {filter: brightness(90%);}
+</style>
+</head>
+<body>
+
+<p>Mouse over the links to see them change layout.</p>
+
+<div id="sche"> 
+</div>
+
+<script>
+var tbl = document.createElement('table');
+    tbl.className='mon';
+    for (let i = 0; i <= 12; i++) {
+      const tr = tbl.insertRow();
+      for (let j = 1; j <= 8; j++) {
+        const td = tr.insertCell();
+        var celltext,celltextpop; 
+          var tmp='vailon';
+          celltext=document.createTextNode(tmp);
+          td.style = "white-space: pre;"
+          td.appendChild(celltext);
+      }
+    }
+    document.getElementById("sche").appendChild(tbl);
+</script>
+</body>
+</html>
