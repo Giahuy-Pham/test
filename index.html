@@ -2,17 +2,46 @@
 <html>
 <head>
 <style>
-.mon td {background-color: lightgray;}
-.mon td:hover, .mon td:active {filter: brightness(90%);}
+#sche {
+  margin: 20px;
+}
+.mon td {
+  background-color: lightblue;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+}
+
+/* .haspopup:active .popup {
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 999;
+} */
+
+.haspopup .popup {
+  position: fixed;
+  top:50%; 
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background-color: lightcoral;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+}
+
+.haspopup.show .popup {
+  position: fixed;
+  top:50%; 
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background-color: lightcoral;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+}
+
 </style>
 </head>
-<body>
-
-<p>Mouse over the links to see them change layout.</p>
-
-<div id="sche"> 
-</div>
-
+<div id="sche"> </div>
 <script>
 var tbl = document.createElement('table');
     tbl.className='mon';
@@ -21,13 +50,28 @@ var tbl = document.createElement('table');
       for (let j = 1; j <= 8; j++) {
         const td = tr.insertCell();
         var celltext,celltextpop; 
-          var tmp='vailon';
-          celltext=document.createTextNode(tmp);
-          td.style = "white-space: pre;"
-          td.appendChild(celltext);
+        var tmp='vailua';
+        celltext=document.createTextNode(tmp);
+        td.style = "white-space: pre;"
+        td.appendChild(celltext);
+        td.className="haspopup";
+        var x=document.createElement("span");
+        celltextpop=document.createTextNode("buh"+i+j);
+        x.className="popup";
+        x.appendChild(celltextpop);
+        td.appendChild(x);
       }
     }
     document.getElementById("sche").appendChild(tbl);
+    const popups = [...document.getElementsByClassName('haspopup')];
+    window.addEventListener('click', ({ target }) => {
+      const popup = target.closest('.haspopup');
+      const clickedOnClosedPopup = popup && !popup.classList.contains('show');
+      
+      popups.forEach(p => p.classList.remove('show'));
+      
+      if (clickedOnClosedPopup) popup.classList.add('show');  
+    });
 </script>
 </body>
 </html>
